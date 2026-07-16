@@ -1,5 +1,5 @@
 import streamlit as st
-from rapidocr_onnxruntime import RapidOCR
+from doctr.io import DocumentFile
 
 st.title("OCR Test")
 
@@ -10,11 +10,4 @@ uploaded = st.file_uploader(
 
 if uploaded:
 
-    with open("temp.png", "wb") as f:
-        f.write(uploaded.getvalue())
-
-    engine = RapidOCR()
-
-    result, _ = engine("temp.png")
-
-    st.write(result)
+    st.image(uploaded)
