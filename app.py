@@ -1,6 +1,5 @@
 import streamlit as st
-from PIL import Image
-import pytesseract
+from paddleocr import PaddleOCR
 
 uploaded = st.file_uploader(
     "Upload image",
@@ -8,18 +7,16 @@ uploaded = st.file_uploader(
 )
 
 if uploaded:
-    img = Image.open(uploaded)
+    st.image(uploaded)
 
-    st.image(img)
 
-    try:
-        text = pytesseract.image_to_string(img)
+    ocr = PaddleOCR(
+        use_angle_cls=True,
+        lang="en"
+    )
 
-        st.text_area(
-            "OCR output",
-            text,
-            height=300,
-        )
+    result = ocr.ocr(
+        uploaded.read()
+    )
 
-    except Exception as e:
-        st.error(str(e))
+    st.write(result)
