@@ -1,5 +1,7 @@
 import streamlit as st
-from paddleocr import PaddleOCR
+from rapidocr_onnxruntime import RapidOCR
+
+st.title("OCR Test")
 
 uploaded = st.file_uploader(
     "Upload image",
@@ -7,16 +9,12 @@ uploaded = st.file_uploader(
 )
 
 if uploaded:
-    st.image(uploaded)
 
+    with open("temp.png", "wb") as f:
+        f.write(uploaded.getvalue())
 
-    ocr = PaddleOCR(
-        use_angle_cls=True,
-        lang="en"
-    )
+    engine = RapidOCR()
 
-    result = ocr.ocr(
-        uploaded.read()
-    )
+    result, _ = engine("temp.png")
 
     st.write(result)
