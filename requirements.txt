@@ -3,3 +3,4 @@ streamlit
 pandas
 opencv-python-headless
 paddleocr
+paddlepaddle
