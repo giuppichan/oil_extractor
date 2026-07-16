@@ -1,3 +1,10 @@
+
 import streamlit as st
 
-st.title("Oil World Extractor")
+uploaded = st.file_uploader(
+    "Upload image",
+    type=["png", "jpg", "jpeg"]
+)
+
+if uploaded:
+    st.image(uploaded)
