@@ -1,7 +1,5 @@
 import streamlit as st
-from doctr.io import DocumentFile
-
-st.title("OCR Test")
+import requests
 
 uploaded = st.file_uploader(
     "Upload image",
@@ -11,3 +9,12 @@ uploaded = st.file_uploader(
 if uploaded:
 
     st.image(uploaded)
+
+    response = requests.post(
+        "https://api.ocr.space/parse/image",
+        files={"filename": open(uploaded, "rb")},
+        data={
+            "apikey": "your_key",
+            "language": "eng"
+        }
+    )
